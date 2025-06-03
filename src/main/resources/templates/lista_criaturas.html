@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Criaturas Mágicas</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 20px; background-color: #f0f2f5; color: #333; }
+        h1 { color: #2c3e50; text-align: center; margin-bottom: 30px; }
+        .container { max-width: 800px; margin: 0 auto; background-color: #ffffff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+        ul { list-style: none; padding: 0; }
+        li { background-color: #e9ecef; border: 1px solid #dee2e6; margin-bottom: 12px; padding: 15px 20px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; }
+        li strong { color: #007bff; margin-right: 5px; }
+        li span { margin-right: 15px; }
+        .add-button { display: block; width: fit-content; margin: 20px auto; padding: 10px 20px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px; font-size: 16px; transition: background-color 0.3s ease; }
+        .add-button:hover { background-color: #218838; }
+        .no-creatures { text-align: center; color: #6c757d; font-style: italic; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Criaturas Mágicas Cadastradas</h1>
+        <a href="/criaturas/novo" class="add-button">Cadastrar Nova Criatura</a>
+
+        <div th:if="${#lists.isEmpty(criaturas)}" class="no-creatures">
+            <p>Nenhuma criatura mágica cadastrada ainda.</p>
+        </div>
+        <ul th:unless="${#lists.isEmpty(criaturas)}">
+            <li th:each="criatura : ${criaturas}">
+                <div>
+                    <span><strong>Nome:</strong> <span th:text="${criatura.nome}">Nome da Criatura</span></span>
+                    <span><strong>Tipo:</strong> <span th:text="${criatura.tipo}">Tipo da Criatura</span></span>
+                    <span><strong>Nível:</strong> <span th:text="${criatura.nivel}">Nível da Criatura</span></span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
