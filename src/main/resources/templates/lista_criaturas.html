@@ -11,6 +11,19 @@
         li { background-color: #e9ecef; border: 1px solid #dee2e6; margin-bottom: 12px; padding: 15px 20px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; }
         li strong { color: #007bff; margin-right: 5px; }
         li span { margin-right: 15px; }
+        .actions { display: flex; gap: 10px; }
+        .action-button {
+            padding: 8px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            color: white;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .edit-button { background-color: #ffc107; }
+        .edit-button:hover { background-color: #e0a800; }
+        .delete-button { background-color: #dc3545; }
+        .delete-button:hover { background-color: #c82333; }
         .add-button { display: block; width: fit-content; margin: 20px auto; padding: 10px 20px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px; font-size: 16px; transition: background-color 0.3s ease; }
         .add-button:hover { background-color: #218838; }
         .no-creatures { text-align: center; color: #6c757d; font-style: italic; }
@@ -30,6 +43,10 @@
                     <span><strong>Nome:</strong> <span th:text="${criatura.nome}">Nome da Criatura</span></span>
                     <span><strong>Tipo:</strong> <span th:text="${criatura.tipo}">Tipo da Criatura</span></span>
                     <span><strong>Nível:</strong> <span th:text="${criatura.nivel}">Nível da Criatura</span></span>
+                </div>
+                <div class="actions">
+                    <a th:href="@{/criaturas/editar/{id}(id=${criatura.id})}" class="action-button edit-button">Editar</a>
+                    <a th:href="@{/criaturas/excluir/{id}(id=${criatura.id})}" class="action-button delete-button" onclick="return confirm('Tem certeza que deseja excluir esta criatura?');">Excluir</a>
                 </div>
             </li>
         </ul>
