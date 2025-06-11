@@ -24,15 +24,39 @@
         .edit-button:hover { background-color: #e0a800; }
         .delete-button { background-color: #dc3545; }
         .delete-button:hover { background-color: #c82333; }
-        .add-button { display: block; width: fit-content; margin: 20px auto; padding: 10px 20px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px; font-size: 16px; transition: background-color 0.3s ease; }
+        /* Alterei a exibição do .add-button para flexionar com outros botões */
+        .add-button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
         .add-button:hover { background-color: #218838; }
+        .button-group-top { /* Novo grupo para centralizar os botões superiores */
+            display: flex;
+            justify-content: center;
+            gap: 15px; /* Espaçamento entre os botões */
+            margin-bottom: 20px;
+        }
+        .secondary-button { /* Novo estilo para botões secundários */
+            background-color: #6c757d; /* Cinza */
+        }
+        .secondary-button:hover {
+            background-color: #5a6268;
+        }
         .no-creatures { text-align: center; color: #6c757d; font-style: italic; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Criaturas Mágicas Cadastradas</h1>
-        <a href="/criaturas/novo" class="add-button">Cadastrar Nova Criatura</a>
+        <div class="button-group-top">
+            <a href="/criaturas/novo" class="add-button">Cadastrar Nova Criatura</a>
+            <a href="/pessoas" class="add-button secondary-button">Ver Lista de Pessoas</a>
+        </div>
 
         <div th:if="${#lists.isEmpty(criaturas)}" class="no-creatures">
             <p>Nenhuma criatura mágica cadastrada ainda.</p>
