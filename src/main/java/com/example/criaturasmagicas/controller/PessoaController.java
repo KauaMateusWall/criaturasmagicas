@@ -1,14 +1,16 @@
-// src/main/java/com/example/criaturasmagicas/controller/PessoaController.java
 package com.example.criaturasmagicas.controller;
 
-import com.example.criaturasmagicas.model.Pessoa;
-import com.example.criaturasmagicas.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Optional;
+import com.example.criaturasmagicas.model.Pessoa;
+import com.example.criaturasmagicas.repository.PessoaRepository;
 
 @Controller
 @RequestMapping("/pessoas")
@@ -36,13 +38,11 @@ public class PessoaController {
     }
 
     @GetMapping("/editar/{id}")
-    public String editarPessoa(@PathVariable Long id, Model model) {
-        Optional<Pessoa> pessoa = pessoaRepository.findById(id);
-        if (pessoa.isPresent()) {
-            model.addAttribute("pessoa", pessoa.get());
-            return "form_pessoa";
-        }
-        return "redirect:/pessoas";
+    public String exibirFormularioEdicao(@PathVariable Long id, Model model) {
+        Pessoa pessoa = pessoaRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("ID da pessoa inválido:" + id));
+        model.addAttribute("pessoa", pessoa);
+        return "form_pessoa";
     }
 
     @GetMapping("/deletar/{id}")

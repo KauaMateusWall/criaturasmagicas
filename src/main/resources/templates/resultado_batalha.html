@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultado da Batalha</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 20px; background-color: #f0f2f5; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+        h1 { color: #2c3e50; text-align: center; margin-bottom: 30px; }
+        .result-box {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #e9ecef;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .result-box h2 { color: #007bff; margin-bottom: 15px; }
+        .result-box p { font-size: 1.1em; margin-bottom: 8px; }
+        .btn-group { display: flex; justify-content: center; gap: 10px; }
+        .btn { padding: 10px 20px; }
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+    <h1>Resultado da Batalha</h1>
+
+    <div class="result-box">
+        <h2>Batalha Encerrada!</h2>
+        <p><strong>Pessoa:</strong> <span th:text="${pessoa.nome}"></span></p>
+        <p><strong>Criatura:</strong> <span th:text="${criatura.nome}"></span></p>
+        <p><strong>Resultado:</strong> <span th:text="${resultadoBatalha}"></span></p>
+    </div>
+
+    <div class="btn-group">
+        <a href="/batalhas/nova" class="btn btn-primary">Iniciar Nova Batalha</a>
+        <a href="/batalhas" class="btn btn-secondary">Ver Todas as Batalhas</a>
+        <a href="/" class="btn btn-info">Voltar para o Início</a>
+    </div>
+</div>
+</body>
+</html>

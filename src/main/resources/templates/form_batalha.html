@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar Batalha</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 20px; background-color: #f0f2f5; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+        h1 { color: #2c3e50; text-align: center; margin-bottom: 30px; }
+        .form-group label { font-weight: bold; }
+        .btn-primary { background-color: #007bff; border-color: #007bff; }
+        .btn-primary:hover { background-color: #0056b3; border-color: #0056b3; }
+        .back-link { display: block; text-align: center; margin-top: 20px; color: #007bff; text-decoration: none; }
+        .back-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+    <h1>Iniciar Nova Batalha</h1>
+
+    <form th:action="@{/batalhas/iniciar}" method="post">
+        <div class="form-group">
+            <label for="pessoa">Selecione a Pessoa:</label>
+            <select id="pessoa" name="pessoaId" class="form-control" required>
+                <option value="">-- Selecione uma Pessoa --</option>
+                <option th:each="p : ${pessoas}" th:value="${p.id}" th:text="${p.nome}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="criatura">Selecione a Criatura:</label>
+            <select id="criatura" name="criaturaId" class="form-control" required>
+                <option value="">-- Selecione uma Criatura --</option>
+                <option th:each="c : ${criaturas}" th:value="${c.id}" th:text="${c.nome}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Iniciar Batalha</button>
+    </form>
+
+    <div th:if="${erro}" class="alert alert-danger mt-3" role="alert">
+        <p th:text="${erro}"></p>
+    </div>
+
+    <a href="/batalhas" class="back-link">Voltar para a lista de Batalhas</a>
+</div>
+</body>
+</html>

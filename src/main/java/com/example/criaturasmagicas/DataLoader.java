@@ -1,74 +1,55 @@
-// src/main/java/com/example/criaturasmagicas/DataLoader.java
 package com.example.criaturasmagicas;
 
-import com.example.criaturasmagicas.model.Criatura;
-import com.example.criaturasmagicas.model.Pessoa; // Importe a classe Pessoa
-import com.example.criaturasmagicas.repository.CriaturaRepository;
-import com.example.criaturasmagicas.repository.PessoaRepository; // Importe o PessoaRepository
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import com.example.criaturasmagicas.model.Criatura;
+import com.example.criaturasmagicas.model.Pessoa;
+import com.example.criaturasmagicas.repository.CriaturaRepository;
+import com.example.criaturasmagicas.repository.PessoaRepository;
 
 @Component
 public class DataLoader implements CommandLineRunner {
 
+    private final PessoaRepository pessoaRepository;
     private final CriaturaRepository criaturaRepository;
-    private final PessoaRepository pessoaRepository; // Injete o PessoaRepository
 
-    public DataLoader(CriaturaRepository criaturaRepository, PessoaRepository pessoaRepository) { // Adicione PessoaRepository ao construtor
+    @Autowired
+    public DataLoader(PessoaRepository pessoaRepository, CriaturaRepository criaturaRepository) {
+        this.pessoaRepository = pessoaRepository;
         this.criaturaRepository = criaturaRepository;
-        this.pessoaRepository = pessoaRepository; // Atribua o PessoaRepository
     }
 
     @Override
     public void run(String... args) throws Exception {
-        // --- Popula Criaturas ---
-        if (criaturaRepository.count() == 0) {
-            Criatura dragao = new Criatura();
-            dragao.setNome("Dragão Flamejante");
-            dragao.setTipo("Dragão");
-            dragao.setNivel(100);
-            criaturaRepository.save(dragao);
+        // Verifica se já existem dados para não duplicar
+        if (pessoaRepository.count() == 0) {
+            Pessoa p1 = new Pessoa();
+            p1.setNome("Alice");
+            p1.setIdade(25);
+            p1.setOcupacao("Aventureira");
+            pessoaRepository.save(p1);
 
-            Criatura elfo = new Criatura();
-            elfo.setNome("Elfo da Floresta");
-            elfo.setTipo("Elfo");
-            elfo.setNivel(50);
-            criaturaRepository.save(elfo);
-
-            Criatura sereia = new Criatura();
-            sereia.setNome("Sereia Encantada");
-            sereia.setTipo("Sereia");
-            sereia.setNivel(75);
-            criaturaRepository.save(sereia);
-
-            System.out.println("Criaturas iniciais inseridas manualmente!");
-        } else {
-            System.out.println("Criaturas já existem no banco de dados. Pulando inserção manual.");
+            Pessoa p2 = new Pessoa();
+            p2.setNome("Bob");
+            p2.setIdade(30);
+            p2.setOcupacao("Mago");
+            pessoaRepository.save(p2);
         }
 
-        // --- Popula Pessoas ---
-        if (pessoaRepository.count() == 0) {
-            Pessoa heroi = new Pessoa();
-            heroi.setNome("Aragorn");
-            heroi.setIdade(35);
-            heroi.setOcupacao("Guardião");
-            pessoaRepository.save(heroi);
+        if (criaturaRepository.count() == 0) {
+            Criatura c1 = new Criatura();
+            c1.setNome("Dragão Infernal");
+            c1.setNivel(80);
+            c1.setTipo("Dragão");
+            criaturaRepository.save(c1);
 
-            Pessoa maga = new Pessoa();
-            maga.setNome("Gandalf");
-            maga.setIdade(150); // Idade fictícia para um mago :)
-            maga.setOcupacao("Mago");
-            pessoaRepository.save(maga);
-
-            Pessoa aldeao = new Pessoa();
-            aldeao.setNome("Aldeão Simples");
-            aldeao.setIdade(28);
-            aldeao.setOcupacao("Fazendeiro");
-            pessoaRepository.save(aldeao);
-
-            System.out.println("Pessoas iniciais inseridas manualmente!");
-        } else {
-            System.out.println("Pessoas já existem no banco de dados. Pulando inserção manual.");
+            Criatura c2 = new Criatura();
+            c2.setNome("Duende Travesso");
+            c2.setNivel(15);
+            c2.setTipo("Duende");
+            criaturaRepository.save(c2);
         }
     }
 }

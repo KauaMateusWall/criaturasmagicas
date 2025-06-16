@@ -2,13 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Criaturas Mágicas</title>
+    <title>Lista de Criaturas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 20px; background-color: #f0f2f5; color: #333; }
         h1 { color: #2c3e50; text-align: center; margin-bottom: 30px; }
         .container { max-width: 800px; margin: 0 auto; background-color: #ffffff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
         ul { list-style: none; padding: 0; }
-        li { background-color: #e9ecef; border: 1px solid #dee2e6; margin-bottom: 12px; padding: 15px 20px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; }
+        li { background-color: #e9ecef; border: 1px solid #dee2e6; margin-bottom: 12px; padding: 15px 20px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
         li strong { color: #007bff; margin-right: 5px; }
         li span { margin-right: 15px; }
         .actions { display: flex; gap: 10px; }
@@ -24,7 +25,12 @@
         .edit-button:hover { background-color: #e0a800; }
         .delete-button { background-color: #dc3545; }
         .delete-button:hover { background-color: #c82333; }
-        /* Alterei a exibição do .add-button para flexionar com outros botões */
+        .button-group-top {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
         .add-button {
             padding: 10px 20px;
             background-color: #28a745;
@@ -35,14 +41,8 @@
             transition: background-color 0.3s ease;
         }
         .add-button:hover { background-color: #218838; }
-        .button-group-top { /* Novo grupo para centralizar os botões superiores */
-            display: flex;
-            justify-content: center;
-            gap: 15px; /* Espaçamento entre os botões */
-            margin-bottom: 20px;
-        }
-        .secondary-button { /* Novo estilo para botões secundários */
-            background-color: #6c757d; /* Cinza */
+        .secondary-button {
+            background-color: #6c757d;
         }
         .secondary-button:hover {
             background-color: #5a6268;
@@ -51,29 +51,33 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Criaturas Mágicas Cadastradas</h1>
-        <div class="button-group-top">
-            <a href="/criaturas/novo" class="add-button">Cadastrar Nova Criatura</a>
-            <a href="/pessoas" class="add-button secondary-button">Ver Lista de Pessoas</a>
-        </div>
+<div class="container mt-4">
+    <h1>Criaturas Cadastradas</h1>
 
-        <div th:if="${#lists.isEmpty(criaturas)}" class="no-creatures">
-            <p>Nenhuma criatura mágica cadastrada ainda.</p>
-        </div>
-        <ul th:unless="${#lists.isEmpty(criaturas)}">
-            <li th:each="criatura : ${criaturas}">
-                <div>
-                    <span><strong>Nome:</strong> <span th:text="${criatura.nome}">Nome da Criatura</span></span>
-                    <span><strong>Tipo:</strong> <span th:text="${criatura.tipo}">Tipo da Criatura</span></span>
-                    <span><strong>Nível:</strong> <span th:text="${criatura.nivel}">Nível da Criatura</span></span>
-                </div>
-                <div class="actions">
-                    <a th:href="@{/criaturas/editar/{id}(id=${criatura.id})}" class="action-button edit-button">Editar</a>
-                    <a th:href="@{/criaturas/excluir/{id}(id=${criatura.id})}" class="action-button delete-button" onclick="return confirm('Tem certeza que deseja excluir esta criatura?');">Excluir</a>
-                </div>
-            </li>
-        </ul>
+    <div class="button-group-top">
+        <a href="/criaturas/novo" class="add-button">Cadastrar Nova Criatura</a>
+        <a href="/pessoas" class="add-button secondary-button">Ver Lista de Pessoas</a>
+        <a href="/batalhas" class="add-button secondary-button">Ver Histórico de Batalhas</a>
     </div>
+
+    <div th:if="${#lists.isEmpty(criaturas)}" class="no-creatures">
+        <p>Nenhuma criatura cadastrada ainda.</p>
+    </div>
+    <ul th:unless="${#lists.isEmpty(criaturas)}">
+        <li th:each="criatura : ${criaturas}">
+            <div>
+                <span><strong>ID:</strong> <span th:text="${criatura.id}">ID da Criatura</span></span>
+                <span><strong>Nome:</strong> <span th:text="${criatura.nome}">Nome da Criatura</span></span>
+                <span><strong>Nível:</strong> <span th:text="${criatura.nivel}">Nível da Criatura</span></span>
+                <span><strong>Tipo:</strong> <span th:text="${criatura.tipo}">Tipo da Criatura</span></span>
+            </div>
+            <div class="actions">
+                <a th:href="@{/criaturas/editar/{id}(id=${criatura.id})}" class="action-button edit-button">Editar</a>
+                <a th:href="@{/criaturas/deletar/{id}(id=${criatura.id})}" class="action-button delete-button"
+                   onclick="return confirm('Tem certeza que deseja deletar esta criatura?');">Deletar</a>
+            </div>
+        </li>
+    </ul>
+</div>
 </body>
 </html>

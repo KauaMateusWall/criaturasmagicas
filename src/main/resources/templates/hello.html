@@ -2,10 +2,39 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Página Mágica</title>
+    <title>Início</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 20px; background-color: #f0f2f5; color: #333; display: flex; justify-content: center; align-items: center; min-height: 90vh; }
+        .container { text-align: center; background-color: #ffffff; padding: 40px; border-radius: 10px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); }
+        h1 { color: #2c3e50; margin-bottom: 30px; font-size: 2.5em; }
+        .btn-group-vertical { display: flex; flex-direction: column; gap: 15px; margin-top: 30px; }
+        .btn-custom {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 250px; /* Largura fixa para os botões */
+        }
+        .btn-pessoas { background-color: #007bff; }
+        .btn-pessoas:hover { background-color: #0056b3; transform: translateY(-3px); }
+        .btn-criaturas { background-color: #28a745; }
+        .btn-criaturas:hover { background-color: #218838; transform: translateY(-3px); }
+        .btn-batalhas { background-color: #ffc107; color: #333; } /* Cor do texto para contraste */
+        .btn-batalhas:hover { background-color: #e0a800; transform: translateY(-3px); }
+    </style>
 </head>
 <body>
-    <h1 th:text="${mensagem}">Mensagem padrão</h1>
+<div class="container">
+    <h1>Bem-vindo ao Mundo das Criaturas Mágicas!</h1>
+    <div class="btn-group-vertical">
+        <a href="/pessoas" class="btn btn-custom btn-pessoas">Gerenciar Pessoas</a>
+        <a href="/criaturas" class="btn btn-custom btn-criaturas">Gerenciar Criaturas</a>
+        <a href="/batalhas" class="btn btn-custom btn-batalhas">Iniciar Batalhas</a>
+    </div>
+</div>
 </body>
 </html>
-

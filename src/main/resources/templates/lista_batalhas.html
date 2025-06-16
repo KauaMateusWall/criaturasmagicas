@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Histórico de Batalhas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 20px; background-color: #f0f2f5; color: #333; }
+        h1 { color: #2c3e50; text-align: center; margin-bottom: 30px; }
+        .container { max-width: 800px; margin: 0 auto; background-color: #ffffff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+        ul { list-style: none; padding: 0; }
+        li { background-color: #e9ecef; border: 1px solid #dee2e6; margin-bottom: 12px; padding: 15px 20px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        li strong { color: #007bff; margin-right: 5px; }
+        li span { margin-right: 15px; }
+        .date-time { font-size: 0.9em; color: #6c757d; margin-top: 5px; display: block; }
+        .button-group-top {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .add-button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .add-button:hover { background-color: #218838; }
+        .secondary-button {
+            background-color: #6c757d;
+        }
+        .secondary-button:hover {
+            background-color: #5a6268;
+        }
+        .no-battles { text-align: center; color: #6c757d; font-style: italic; }
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+    <h1>Histórico de Batalhas</h1>
+
+    <div class="button-group-top">
+        <a href="/batalhas/nova" class="add-button">Iniciar Nova Batalha</a>
+        <a href="/" class="add-button secondary-button">Voltar ao Início</a>
+    </div>
+
+    <div th:if="${#lists.isEmpty(batalhas)}" class="no-battles">
+        <p>Nenhuma batalha registrada ainda.</p>
+    </div>
+    <ul th:unless="${#lists.isEmpty(batalhas)}">
+        <li th:each="batalha : ${batalhas}">
+            <div>
+                <span><strong>Pessoa:</strong> <span th:text="${batalha.pessoa.nome}"></span></span>
+                <span><strong>vs. Criatura:</strong> <span th:text="${batalha.criatura.nome}"></span></span>
+                <span><strong>Resultado:</strong> <span th:text="${batalha.resultado}"></span></span>
+                <span class="date-time" th:text="${#temporals.format(batalha.dataBatalha, 'dd/MM/yyyy HH:mm')}"></span>
+            </div>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
